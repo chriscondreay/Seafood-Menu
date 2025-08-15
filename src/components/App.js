@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
@@ -46,7 +46,7 @@ class App extends React.Component {
                         ))}
                     </ul>
                 </div>
-                <Order />
+                <Order fishes={this.state.fishes} order={this.state.order} />
                 <Inventory addFish={this.addFish} loadSampleFishes={this.loadSampleFishes} />
             </div>
         )
