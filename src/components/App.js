@@ -19,14 +19,22 @@ class App extends React.Component {
     componentDidMount() {
         const { storeId } = this.props.params || {};
         if (storeId) {
-            this.ref = ref(base, `${storeId}/fishes`, {
-                context: this,
-                state: 'fishes'
-            });
-            this.unsubscribe = onValue(this.ref, (snapshot) => {
+            const localStorageRef = localStorage.getItem(storeId);
+            if (localStorageRef) {
+                this.setState({ order: JSON.parse(localStorageRef) });
+            }
+            this.fishesRef = ref(base, `${storeId}/fishes`);
+            this.unsubscribe = onValue(this.fishesRef, (snapshot) => {
                 const data = snapshot.val() || {};
                 this.setState({ fishes: data });
             });
+        }
+    }
+
+    componentDidUpdate() {
+        const { storeId } = this.props.params || {};
+        if (storeId) {
+            localStorage.setItem(storeId, JSON.stringify(this.state.order));
         }
     }
 
