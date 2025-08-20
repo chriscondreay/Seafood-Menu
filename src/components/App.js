@@ -1,9 +1,13 @@
+
 import React from "react";
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
 import Fish from "./Fish";
 import sampleFishes from "../sample-fishes";
+import { base } from "../base";
+import { ref, onValue, set, off } from "firebase/database";
+import { useParams } from "react-router-dom";
 
 class App extends React.Component {
     state = {
@@ -11,17 +15,47 @@ class App extends React.Component {
         order: {}
     };
 
+
+    componentDidMount() {
+        const { storeId } = this.props.params || {};
+        if (storeId) {
+            this.ref = ref(base, `${storeId}/fishes`, {
+                context: this,
+                state: 'fishes'
+            });
+            this.unsubscribe = onValue(this.ref, (snapshot) => {
+                const data = snapshot.val() || {};
+                this.setState({ fishes: data });
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.fishesRef) {
+            off(this.fishesRef);
+        }
+    }
+
+
     addFish = (fish) => {
-        // Take a copy of the existing fishes state
+        const { storeId } = this.props.params || {};
         const fishes = { ...this.state.fishes };
-        // Add new fish to fishes variable
         fishes[`fish${Date.now()}`] = fish;
-        // Set new fishes object to state
-        this.setState({ fishes });
+        this.setState({ fishes }, () => {
+            if (storeId) {
+                set(ref(base, `${storeId}/fishes`), this.state.fishes);
+            }
+        });
     };
 
+
     loadSampleFishes = () => {
-        this.setState({ fishes: sampleFishes })
+        const { storeId } = this.props.params || {};
+        this.setState({ fishes: sampleFishes }, () => {
+            if (storeId) {
+                set(ref(base, `${storeId}/fishes`), sampleFishes);
+            }
+        });
     };
 
     addToOrder = (key) => {
@@ -53,4 +87,11 @@ class App extends React.Component {
     }
 }
 
-export default App;
+
+// Wrapper to inject params from React Router v6
+function AppWithParams(props) {
+    const params = useParams();
+    return <App {...props} params={params} />;
+}
+
+export default AppWithParams;
