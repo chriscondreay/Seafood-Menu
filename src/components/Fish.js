@@ -3,7 +3,9 @@ import { formatPrice } from "../helpers";
 
 class Fish extends React.Component {
     render() {
-        const { image, name, desc, price, status } = this.props.details;
+        const details = this.props.details;
+        if (!details) return null;
+        const { image, name, desc, price, status } = details;
         const isAvailable = status === 'available';
 
         return (

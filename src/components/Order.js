@@ -14,9 +14,11 @@ class Order extends React.Component {
             <li key={key}>
                 {count} lbs {fish.name}
                 {formatPrice(count * fish.price)}
+                <button onClick={() => this.props.removeFromOrder(key)}>&times;</button>
             </li>
         );
     };
+
     render() {
         const orderIds = Object.keys(this.props.order);
         const total = orderIds.reduce((prevTotal, key) => {
@@ -28,6 +30,7 @@ class Order extends React.Component {
             }
             return prevTotal;
         }, 0);
+
         return (
             <div className="order">
                 <h2>Your Order</h2>
