@@ -580,10 +580,10 @@ input[type=submit].success:after {
 }
 button.github,
 input[type=submit].github,
-button.facebook,
-input[type=submit].facebook,
-button.twitter,
-input[type=submit].twitter {
+button.email,
+input[type=submit].email,
+button.google,
+input[type=submit].google {
   border: 0;
   display: block;
   margin-bottom: 2rem;
@@ -593,27 +593,27 @@ input[type=submit].twitter {
 }
 button.github,
 input[type=submit].github {
-  background: #82d465;
+  background: #403f4c;
 }
 button.github:after,
 input[type=submit].github:after {
-  background: #5cc437;
+  background: #2a2c32;
 }
-button.facebook,
-input[type=submit].facebook {
+button.email,
+input[type=submit].email {
   background: #3864a3;
 }
-button.facebook:after,
-input[type=submit].facebook:after {
+button.email:after,
+input[type=submit].email:after {
   background: #2d5082;
 }
-button.twitter,
-input[type=submit].twitter {
-  background: #5ea9dd;
+button.google,
+input[type=submit].google {
+  background: #d14838;
 }
-button.twitter:after,
-input[type=submit].twitter:after {
-  background: #2c8dd0;
+button.google:after,
+input[type=submit].google:after {
+  background: #de5236;
 }
 .store-selector {
   background: #fff;
