@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Header from "./Header";
 import Order from "./Order";
 import Inventory from "./Inventory";
@@ -117,12 +118,16 @@ class App extends React.Component {
       </div>
     );
   }
-}
+};
 
 // Wrapper to inject params from React Router v6
 function AppWithParams(props) {
-  const params = useParams();
-  return <App {...props} params={params} />;
+    const params = useParams();
+    return <App {...props} params={params} />;
+};
+
+AppWithParams.propTypes = {
+    params: PropTypes.object.isRequired
 }
 
 export default AppWithParams;

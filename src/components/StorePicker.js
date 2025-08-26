@@ -1,6 +1,7 @@
 import React from "react";
 import { getFunName } from "../helpers";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 class StorePicker extends React.Component {
   input = React.createRef();
@@ -33,6 +34,10 @@ class StorePicker extends React.Component {
 function StorePickerWrapper(props) {
   const navigate = useNavigate();
   return <StorePicker {...props} navigate={navigate} />;
+};
+
+StorePicker.propTypes = {
+  navigate: PropTypes.func,
 }
 
 export default StorePickerWrapper;

@@ -1,5 +1,6 @@
 import React from "react";
 import { formatPrice } from "../helpers";
+import PropTypes from "prop-types";
 
 class Order extends React.Component {
     renderOrder = key => {
@@ -44,6 +45,12 @@ class Order extends React.Component {
             </div>
         )
     }
+};
+
+Order.propTypes = {
+    fishes: PropTypes.object,
+    order: PropTypes.object,
+    removeFromOrder: PropTypes.func
 }
 
 export default Order;
